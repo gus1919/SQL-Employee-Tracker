@@ -1,23 +1,23 @@
 -- Database 
 DROP DATABASE IF EXISTS employee_DB;
-
 CREATE DATABASE employee_DB;
 
 USE employee_DB;
 
 -- Department Table
 CREATE TABLE department (
-    id INT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL
+    id INT NOT NULL AUTO_INCREMENT,
+    department_name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
     );
 
 -- Employee Role Table
-CREATE TABLE role (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE employee_role (
+    id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL(10, 0) NOT NULL,
     department_id INT NOT NULL,
-    FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
+    PRIMARY KEY (id)
 );
 
 -- Employee Table
@@ -27,6 +27,5 @@ CREATE TABLE employee (
     last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
     manager_id INT,
-    FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
-    FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE CASCADE
+    PRIMARY KEY (id)
 );
