@@ -96,7 +96,7 @@ startPrompt();
 // View All Roles
   function viewAllRoles() {  
     connection.query(
-        'SELECT role.roleID, role.title AS "JOB TITLE", role.salary as SALARY, department.departmentName AS DEPT FROM role INNER JOIN department ON role.departmentID = department.departmentID;',
+        'SELECT role.roleID, role.title AS "JOB TITLE", role.salary AS SALARY, department.departmentName AS DEPT FROM role INNER JOIN department ON role.departmentID = department.departmentID;',
 
         (err, results, fields) => {
            console.table(results);
@@ -108,7 +108,7 @@ startPrompt();
   // View All Employees
   function viewAllEmployees() {
     connection.query(
-        'SELECT * FROM `employee`',
+        'SELECT CONCAT(employee.firstName, " ", employee.lastName) AS NAME, employee.id, role.title AS "JOB TITLE", role.salary AS SALARY, department.departmentName AS DEPT FROM((employee INNER JOIN role ON role.roleID = employee.roleID) INNER JOIN department ON role.departmentID = department.departmentID);',
         (err, results, fields) => {
            console.table(results);
            startPrompt();
