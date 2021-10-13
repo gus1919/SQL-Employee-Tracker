@@ -6,25 +6,26 @@ USE employee_DB;
 
 -- Department Table
 CREATE TABLE department (
-    department_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    department_name VARCHAR(30) NOT NULL
+    departmentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    departmentName VARCHAR(30) NOT NULL
     );
 
 -- Employee Role Table
 CREATE TABLE role (
-    role_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    roleID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(10, 0) NOT NULL,
-    department_id INT NOT NULL,
-    FOREIGN KEY (department_id) REFERENCES department(department_id)
+    departmentID INT NOT NULL,
+    FOREIGN KEY (departmentID) REFERENCES department(departmentID)
 );
 
 -- Employee Table
 CREATE TABLE employee (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
-    role_id INT NOT NULL,
-    manager_id INT,
-    FOREIGN KEY (role_id) REFERENCES role(role_id)
+    firstName VARCHAR(30) NOT NULL,
+    lastName VARCHAR(30) NOT NULL,
+    roleID INT NOT NULL,
+    managerID INT,
+    FOREIGN KEY (roleID) REFERENCES role(roleID),
+    FOREIGN KEY (managerID) REFERENCES employee(id)
 );

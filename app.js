@@ -85,7 +85,7 @@ startPrompt();
 // View All Departments
   function viewAllDepartments() {
     connection.query(
-        'SELECT department_id, department_name AS DEPARTMENT FROM `department`',
+        'SELECT departmentID, departmentName AS DEPARTMENT FROM `department`',
         (err, results, fields) => {
            console.table(results);
            startPrompt();
@@ -96,8 +96,7 @@ startPrompt();
 // View All Roles
   function viewAllRoles() {  
     connection.query(
-        'SELECT r.role_id, r.title AS "JOB TITLE", r.salary AS SALARY, d.department_name AS DEPARTMENT FROM `role` AS r, `department`',
-
+        'SELECT role.roleID, role.title AS "JOB TITLE", role.salary as SALARY, department.departmentName AS DEPT FROM role INNER JOIN department ON role.departmentID = department.departmentID;',
 
         (err, results, fields) => {
            console.table(results);

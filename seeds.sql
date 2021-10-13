@@ -1,7 +1,7 @@
 USE employee_DB;
 
 -- Department Seeds
-INSERT INTO department (department_name)
+INSERT INTO department (departmentName)
 VALUES 
 ("Sales"),
 ("Engineering"),
@@ -9,7 +9,7 @@ VALUES
 ("Legal");
 
 -- Employee Role Seeds
-INSERT INTO role (title, salary, department_id)
+INSERT INTO role (title, salary, departmentID)
 VALUES 
 ("Sales Lead", 100000, 1),
 ("Salesperson", 80000, 1),
@@ -21,7 +21,7 @@ VALUES
 ("Lawyer", 190000, 4);
 
 -- Employee Seeds
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (firstName, lastName, roleID, managerID)
 VALUES 
 ("John", "Doe", 1, null),
 ("Mike", "Chan", 1, 1),
