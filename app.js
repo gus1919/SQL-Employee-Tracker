@@ -1,7 +1,13 @@
+// hidden password
 require('dotenv').config();
+
+// Inquirer, Console Table
+const inquirer = require("inquirer");
+const cTable = require("console.table");
 
 // get the client
 const mysql = require('mysql2');
+const e = require('express');
 
 // create the connection to database
 const connection = mysql.createConnection({
@@ -15,48 +21,13 @@ const connection = mysql.createConnection({
 connection.query(
     'SELECT * FROM `department`',
     (err, results, fields) => {
-        console.log(results); // results contains rows returned by server
-        console.log(fields); // fields contains extra meta data about results, if available
+       // console.log(results); // results contains rows returned by server
+       // console.log(fields); // fields contains extra meta data about results, if available
     }
   );
 
-/*
-// DEPENDENCIES
-
-const inquirer = require("inquirer");
-const mysql = require("mysql2/promise");
-const cTable = require("console.table");
-const express = require("express");
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-// Connect to database
-connect();
-async function connect(){
-    try {
-        const connection = await mysql.createConnection(
-            {
-              host: 'localhost',
-              port: 3306,
-              user: 'root',
-              password: password,
-              database: 'employee_db'
-            });
-    const [rows,schema] = await connection.query("SELECT * FROM EMPLOYEE");
-    }
-}; 
-
-
-function newFunction() {
-    return require("mysql2/typings/mysql/lib/Connection");
-}
-
-  // Starting inquirer prompt
-
+// Starting inquirer prompt
+startPrompt();
   function startPrompt() {
       inquirer.prompt([
           {
@@ -71,6 +42,7 @@ function newFunction() {
                   "Add Role",
                   "Add Employee",
                   "Update Employee Role",
+                  "Exit",
               ]
           }
       ]).then(function(val){
@@ -102,58 +74,62 @@ function newFunction() {
               case "Update Employee Role":
                   updateEmployee();
               break;  
+             
+              case "Exit":
+                  exit();
+              break;  
           }
       })
   }
   
 // View All Departments
   function viewAllDepartments() {
-      const departmentQuery = `SELECT * FROM department`
-      Connection.query(departmentQuery, (err, data) => {
-          if (err) throw err;
-          console.table(data);
-      startPrompt();
-    })
+    connection.query(
+        'SELECT department_id, department_name AS DEPARTMENT FROM `department`',
+        (err, results, fields) => {
+           console.table(results);
+           startPrompt();
+        }
+      );
   };
 
 // View All Roles
   function viewAllRoles() {  
-   const roleQuery = `SELECT * FROM employee_role`
-   Connection.query(roleQuery, (err, data) => {
-       if (err) throw err;
-       console.table(data);
-       startPrompt();
-   })
+    connection.query(
+        'SELECT r.role_id, r.title AS "JOB TITLE", r.salary AS SALARY, d.department_name AS DEPARTMENT FROM `role` AS r, `department`',
+
+
+        (err, results, fields) => {
+           console.table(results);
+           startPrompt();
+        }
+      );
   };
 
   // View All Employees
   function viewAllEmployees() {
-const employeeQuery = `SELECT employee.id, employee.first_name, employee.last_name,
-employee_role.title 
-AS employee_role, CONCAT(manager.first_name, ' ', manager.last_name)
-AS manager, department.name FROM employee 
-LEFT JOIN employee_role ON employee.role_id = department.id 
-LEFT JOIN employee manager ON employee.manager_id = manager.id`
-
-Connection.query(employeeQuery, (err, data) => {
-    if (err) throw err;
-    console.table(data);
-    startPrompt();
-})
+    connection.query(
+        'SELECT * FROM `employee`',
+        (err, results, fields) => {
+           console.table(results);
+           startPrompt();
+        }
+      );
     };
 
   // Add Employee
-  function addEmployee() {};
+  function addEmployee() {
+      
+  };
  
   // Update Employee Role
   function updateEmployee() {};
  
- 
   // Add Role
   function addRole() {};
  
-
- 
   // Add Department
   function addDepartment() {};
-*/
+
+  // Exit Program
+  function exit() {};
