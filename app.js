@@ -7,7 +7,7 @@ const cTable = require("console.table");
 
 // get the client
 const mysql = require('mysql2');
-const e = require('express');
+
 
 // create the connection to database
 const connection = mysql.createConnection({
@@ -18,13 +18,13 @@ const connection = mysql.createConnection({
 });
 
 // simple query
-connection.query(
-    'SELECT * FROM `department`',
-    (err, results, fields) => {
-       // console.log(results); // results contains rows returned by server
-       // console.log(fields); // fields contains extra meta data about results, if available
-    }
-  );
+// connection.query(
+//     'SELECT * FROM `department`',
+//     (err, results, fields) => {
+//        // console.log(results); // results contains rows returned by server
+//        // console.log(fields); // fields contains extra meta data about results, if available
+//     }
+//   );
 
 // Starting inquirer prompt
 startPrompt();
@@ -76,7 +76,7 @@ startPrompt();
               break;  
              
               case "Exit":
-                  exit();
+                  connection.end();
               break;  
           }
       })
@@ -108,7 +108,7 @@ startPrompt();
   // View All Employees
   function viewAllEmployees() {
     connection.query(
-        'SELECT CONCAT(employee.firstName, " ", employee.lastName) AS NAME, employee.id, role.title AS "JOB TITLE", role.salary AS SALARY, department.departmentName AS DEPT FROM((employee INNER JOIN role ON role.roleID = employee.roleID) INNER JOIN department ON role.departmentID = department.departmentID);',
+        'SELECT CONCAT(employee.firstName, " ", employee.lastName) AS NAME, employee.id, employee.managerID AS MANAGER, role.title AS "JOB TITLE", role.salary AS SALARY, department.departmentName AS DEPT FROM((employee INNER JOIN role ON role.roleID = employee.roleID) INNER JOIN department ON role.departmentID = department.departmentID);',
         (err, results, fields) => {
            console.table(results);
            startPrompt();
@@ -118,7 +118,35 @@ startPrompt();
 
   // Add Employee
   function addEmployee() {
-      
+      /*const employeeQuestions = () => {
+        inquirer.prompt([
+          {
+            type: 'input',
+            name: 'firstName',
+            message: 'Please Enter New Employee\'s First Name.', 
+          },
+          {
+            type: 'input',
+            name: 'LastName',
+            message: 'Please Enter New Employee\'s Last Name.', 
+          },
+          {
+            type: 'list',
+            name: 'role',
+            message: 'Please Enter New Employee\'s Role.',
+            choices: [
+              "View All Departments",
+              "View All Roles",
+              "View All Employees",
+              "Add Department",
+              "Add Role",
+              "Add Employee",
+              "Update Employee Role",
+              "Exit",
+          ] 
+          }
+        ])
+      } */
   };
  
   // Update Employee Role
@@ -128,7 +156,23 @@ startPrompt();
   function addRole() {};
  
   // Add Department
-  function addDepartment() {};
-
-  // Exit Program
-  function exit() {};
+  function addDepartment() {
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'departmentName',
+        message: 'Enter the name of the new department.',
+      },
+    ])
+    .then(function(answer) {
+      console.log(answer);
+      connection.query("INSERT INTO department (departmentName) VALUES = ?", [answer],
+      (err) => {
+          if (err)
+            throw err;
+          console.log(`${answer.departmentName} added as new Department`);
+          startPrompt();}
+      )}
+      
+    );
+      };  
