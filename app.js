@@ -154,37 +154,38 @@ startPrompt();
  
   // Add Role
   function addRole() {
-    /*
-    inquirer.prompt([
-      {
-        type: 'input',
-        name: 'role',
-        message: 'What is the new role?',
-      },
-      {
-        type: 'input',
-        name: 'salary',
-        message: 'What is the salary for the new role?',
-      },
-      {
-        type: 'list',
-        name: 'role',
-        message: 'What department is the new role in?',
-        choices: [deptChoices]
-      },
-    ])
-    .then(function(answer) {
-      console.log(answer);
-      connection.execute("INSERT INTO department (departmentID, departmentName) VALUES (?, ?)", [0, answer.departmentName], 
-      (err, result) => {
-          if (err)
-            throw err;
-          console.log(`${answer.departmentName} added as new Department`);
-          startPrompt();}
-      )}
+    let departments = []
+           inquirer.prompt([
+        
+        {
+          type: "input",
+          name: "title",
+          message: "Please enter title of new role"
+        }, 
+        {
+          type: "input",
+          name: "salary",
+          message: "Please enter salary for new role"
+        }, 
+        {
+          type: "list",
+          name: "departmentId",
+          message: "Please enter department id for new role",
+          choices: departments
+        }])
+        .then(function (answers) {
+          let query2 = `INSERT INTO role VALUES (?,?,?,?)`
+          connection.query(query2, [0, answers.title, answers.salary, answers.departmentId], function (err) {
+            if (err) throw err;
+            console.log(`${answers.title} added as new role`)
+            startPrompt();
+          })
+        })
+    };
+    
       
-    ); */
-      };  
+  
+     
  
   // Add Department
   function addDepartment() {
