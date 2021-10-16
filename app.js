@@ -153,7 +153,38 @@ startPrompt();
   function updateEmployee() {};
  
   // Add Role
-  function addRole() {};
+  function addRole() {
+    /*
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'role',
+        message: 'What is the new role?',
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'What is the salary for the new role?',
+      },
+      {
+        type: 'list',
+        name: 'role',
+        message: 'What department is the new role in?',
+        choices: [deptChoices]
+      },
+    ])
+    .then(function(answer) {
+      console.log(answer);
+      connection.execute("INSERT INTO department (departmentID, departmentName) VALUES (?, ?)", [0, answer.departmentName], 
+      (err, result) => {
+          if (err)
+            throw err;
+          console.log(`${answer.departmentName} added as new Department`);
+          startPrompt();}
+      )}
+      
+    ); */
+      };  
  
   // Add Department
   function addDepartment() {
@@ -166,8 +197,8 @@ startPrompt();
     ])
     .then(function(answer) {
       console.log(answer);
-      connection.query("INSERT INTO department (departmentName) VALUES = ?", [answer],
-      (err) => {
+      connection.execute("INSERT INTO department (departmentID, departmentName) VALUES (?, ?)", [0, answer.departmentName], 
+      (err, result) => {
           if (err)
             throw err;
           console.log(`${answer.departmentName} added as new Department`);
