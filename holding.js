@@ -50,3 +50,42 @@ Connection.query(employeeQuery, (err, data) => {
 
      d.department_name AS DEPARTMENT
      INNER JOIN `department` ON r.department_id = d.department_name
+     */
+     function addRole() {
+        inquirer.prompt([
+     
+     {
+       type: "input",
+       name: "title",
+       message: "Please enter title of new role"
+     }, 
+     {
+       type: "input",
+       name: "salary",
+       message: "Please enter salary for new role"
+     }, 
+     {
+       type: "input",
+       name: "departmentId",
+       message: "Please enter department id for new role"
+     }])
+     .then(function (answers) {
+       let query2 = `INSERT INTO role VALUES (?,?,?,?)`
+       connection.query(query2, [0, answers.title, answers.salary, answers.departmentId], function (err) {
+         if (err) throw err;
+         console.log(`${answers.title} added as new role`)
+         startPrompt();
+       })
+     })
+ };
+ 
+
+ function viewAllEmployees() {
+  connection.query(
+      'SELECT CONCAT(employee.firstName, " ", employee.lastName) AS NAME, employee.id,  employee.managerID AS MANAGER, role.title AS "JOB TITLE", role.salary AS SALARY, department.departmentName AS DEPT FROM((employee INNER JOIN role ON role.roleID = employee.roleID) INNER JOIN department ON role.departmentID = department.departmentID);',
+      (err, results, fields) => {
+         console.table(results);
+         startPrompt();
+      }
+    );
+  };
