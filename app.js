@@ -219,4 +219,72 @@ function addEmployee() {
   };
   
 // Update Employee Role
-function updateEmployee() {};
+function updateEmployee() {
+  let query = `SELECT * FROM employee`;
+
+  connection.query(query, (err, response) => {
+    if (err) throw err;
+    const employees = response.map(function (employee) {
+      return {
+        name: `${employee.employeeName}`,
+        value: employee.id
+      }
+    });
+
+    inquirer.prompt([{
+      type: "list",
+      name: "employeeId",
+      message: "Which employees role do you want to update",
+      choices: employees
+    }])
+      .then(input1 => {
+        connection.query(`SELECT * FROM role`, (err, data) => {
+          if (err) throw err;
+          console.log(input1);
+          const roles = data.map(function (role) {
+            return {
+              name: role.title,
+              value: role.roleID
+            }
+          });
+
+          inquirer.prompt([{
+            type: "list",
+            name: "roleId",
+            message: "What's the new role",
+            choices: roles
+          }])
+            .then(input2 => {
+              console.log(input2)
+              const query1 = `UPDATE employee
+        SET employee.roleID = ? 
+        WHERE employee.id = ?`
+              connection.query(query1, [input2.roleID, input1.id], function (err, res) {
+                var newPosition;
+                for (var i = 0; i < roles.length; i++) {
+                  if (roles[i].value == input2.roleID) {
+                    newPosition = roles[i].title;
+                  }
+                }
+                console.log(newPosition);
+                
+              var tempName;
+                for (var g = 0; g < employees.length; g++) {
+                  if (employees[g].value == input1.employeeId) {
+                    tempName = employees[g].name;
+                  }
+                }
+console.log(tempName);
+                if (res.changedRows === 1) {
+                  console.log(`Successfully updated ${tempName} to position of ${newPosition}`);
+                } else {
+                  console.log(`Error: ${tempName}'s current position is ${newPosition}`)
+                }
+                
+                startPrompt();
+              })
+            })
+        })
+      })
+  })
+};
