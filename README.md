@@ -23,11 +23,14 @@ Building a Content Management System from scratch.
 
   >In the CLI run node index.js and navigate to your desired functions and follow the prompts.
  
-  >Here is a link to the video demonstartion: 
+  >Here is a link to the video demonstartion: https://watch.screencastify.com/v/tO6O9qS0pAjjQiIHOIrU
   
   >Here is a link to the github repository: https://github.com/gus1919/SQL-Employee-Tracker
   
   >Screenshots:
+![Screenshot (43)](https://user-images.githubusercontent.com/86876335/138015933-31dcc9a8-fa25-4232-8f7a-626324c1f1fc.png)
+![Screenshot (44)](https://user-images.githubusercontent.com/86876335/138015944-f4699545-d5ed-486f-a883-012ab1b7d19c.png)
+![Screenshot (45)](https://user-images.githubusercontent.com/86876335/138015955-b42f8783-744a-4392-8c02-dce74bd104f6.png)
 
 
 
