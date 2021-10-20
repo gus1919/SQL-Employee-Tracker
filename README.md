@@ -2,7 +2,7 @@
 Building a Content Management System from scratch.
 
 ## Description
-> 
+> In this project, I used nodejs and mySQL to create a database accessible through the CLI in which you could view employees, roles, and departments.  In addition you are able to add roles, add departments, add employees, and update employees quickly and easily.
 
   ---
   ## Table of contents
@@ -16,16 +16,18 @@ Building a Content Management System from scratch.
   ---
   ## Installation
    
-   >None.  Navigate using the link below to the deployed app on Heroku.
+   >NPM install, make sure you have inquirer and mySQL2 as well.  Source the schema.sql and seeds.sql files first then run node index.js.
  
   ---
   ## Use
 
-  >Click on get started and enter a note title and body.  Then save the note using the disc icon or add a new note using the plus symbol.  You can also delete a note by clicking on the garbage can icon next to the note. 
+  >In the CLI run node index.js and navigate to your desired functions and follow the prompts.
  
-  >Here is a link to the deployed application: 
+  >Here is a link to the video demonstartion: 
   
-  >Here is a link to the github repository: 
+  >Here is a link to the github repository: https://github.com/gus1919/SQL-Employee-Tracker
+  
+  >Screenshots:
 
 
 
@@ -43,15 +45,14 @@ Building a Content Management System from scratch.
   ## Features
 * Javascript
 * node.js
-* express.js
 * NPM
-* Bootstrap
-* fs
-* Heroku
-* uuid
+* mySQL2
+* inquirer
+* console.table
+* dotenv
 ---
   ## Issues
-> 
+> Updating employee role is still not fully functioning properly.  It is not being reflected in the view All Employees.
   ---
 
 ## License
